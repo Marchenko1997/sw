@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  a:not([role]) {
+    @apply text-primary underline hover:text-primary-700;
+  }
+}
