@@ -146,7 +146,6 @@ export const HeroPage = () => {
         {isReady ? (
           <ReactFlow nodes={nodes} edges={edges}>
             <Controls />
-            <MiniMap />
           </ReactFlow>
         ) : (
           <CircularProgress aria-label="Loading..." />
