@@ -1,3 +1,7 @@
-.grid {
-  @apply max-w-lg mx-auto;
+.wrapper {
+  @apply flex-auto;
+}
+
+.item {
+  @apply p-2 hover:bg-primary-50;
 }

@@ -3,5 +3,5 @@
 }
 
 .main {
-  @apply flex-auto;
+  @apply flex-auto lg:container my-4 flex;
 }

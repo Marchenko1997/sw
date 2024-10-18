@@ -1,4 +1,4 @@
-export interface Hero {
+export interface IHero {
   id: number
   name: string
   height: string
@@ -13,6 +13,24 @@ export interface Hero {
   species: number[]
   vehicles: number[]
   starships: number[]
+  created: Date
+  edited: Date
+  url: string
+}
+
+export interface IFilm {
+  id: number
+  title: string
+  episode_id: number
+  opening_crawl: string
+  director: string
+  producer: string
+  release_date: string
+  characters: number[]
+  planets: number[]
+  starships: number[]
+  vehicles: number[]
+  species: number[]
   created: Date
   edited: Date
   url: string

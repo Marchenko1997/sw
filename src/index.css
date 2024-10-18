@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply text-lg;
+  }
+
   a:not([role]) {
     @apply text-primary underline hover:text-primary-700;
   }
