@@ -1,3 +1,4 @@
+import { CircularProgress } from "@nextui-org/react"
 import {
   Controls,
   type Edge,
@@ -148,7 +149,7 @@ export const HeroPage = () => {
             <MiniMap />
           </ReactFlow>
         ) : (
-          <div>Loading...</div>
+          <CircularProgress aria-label="Loading..." />
         )}
       </div>
     </div>
