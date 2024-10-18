@@ -37,6 +37,7 @@ export const HeroPage = () => {
   const fetchStarships = useStarshipsStore((state) => state.fetchStarships)
   const [starshipsIds, setStarshipsIds] = useState<number[]>([])
   const [heroStarships, setHeroStarships] = useState<IStarship[]>([])
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
     if (hero) {
@@ -94,6 +95,8 @@ export const HeroPage = () => {
             )
           }
         })
+
+        setIsReady(true)
       })
     }
   }, [heroStarships])
@@ -139,10 +142,14 @@ export const HeroPage = () => {
         <Link to="/">Return to main page</Link>
       </p>
       <div className={"h-full"}>
-        <ReactFlow nodes={nodes} edges={edges}>
-          <Controls />
-          <MiniMap />
-        </ReactFlow>
+        {isReady ? (
+          <ReactFlow nodes={nodes} edges={edges}>
+            <Controls />
+            <MiniMap />
+          </ReactFlow>
+        ) : (
+          <div>Loading...</div>
+        )}
       </div>
     </div>
   )
