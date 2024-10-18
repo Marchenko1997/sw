@@ -6,7 +6,7 @@ import {
   ReactFlow,
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import useSWRImmutable from "swr/immutable"
 import { useFilmsStore } from "../../../shared/hooks/use-films-store"
@@ -26,6 +26,9 @@ export const HeroPage = () => {
   const [filmsReady, setFilmsReady] = useState(false)
   const [nodes, setNodes] = useNodesState(initialNodes)
   const [edges, setEdges] = useEdgesState(initialEdges)
+  const heroFilms = useCallback(() => {
+    return films.filter(({ id }) => hero?.films.includes(id))
+  }, [films, hero])
 
   useEffect(() => {
     if (hero) {
@@ -39,10 +42,7 @@ export const HeroPage = () => {
 
   useEffect(() => {
     if (hero) {
-      if (
-        films.filter(({ id }) => hero.films.includes(id)).length ===
-        hero.films.length
-      ) {
+      if (heroFilms().length === hero.films.length) {
         setFilmsReady(true)
       }
     }
@@ -58,8 +58,7 @@ export const HeroPage = () => {
           position: { x: 0, y: 0 },
         },
       ])
-      const heroFilms = films.filter(({ id }) => hero.films.includes(id))
-      const nodes: Node[] = heroFilms.map(({ id, title }, index) => ({
+      const nodes: Node[] = heroFilms().map(({ id, title }, index) => ({
         id: `film${String(id)}`,
         data: { label: title },
         position: { x: index * 200, y: 100 },
@@ -67,14 +66,15 @@ export const HeroPage = () => {
       // add films nodes to graph
       setNodes((prevState) => [...prevState, ...nodes])
 
-      const edges: Edge[] = heroFilms.map(({ id }) => ({
+      const edges: Edge[] = heroFilms().map(({ id }) => ({
         id: `hero${String(hero.id)}-film${String(id)}`,
         source: `hero${String(hero.id)}`,
         target: `film${String(id)}`,
+        animated: true,
       }))
       setEdges((prevState) => [...prevState, ...edges])
     }
-  }, [filmsReady, hero])
+  }, [filmsReady])
 
   return (
     <div className={styles.wrapper}>
@@ -82,7 +82,11 @@ export const HeroPage = () => {
         <Link to="/">Return to main page</Link>
       </p>
       <div className={"flex-auto"}>
-        <ReactFlow nodes={nodes} edges={edges} fitView />
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          // fitView
+        />
       </div>
     </div>
   )
