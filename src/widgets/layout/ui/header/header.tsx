@@ -1,5 +1,5 @@
 import styles from "./header.module.css"
 
 export const Header = () => {
-  return <div className={styles.wrapper}>Star Wars</div>
+  return <header className={styles.wrapper}>Star Wars</header>
 }

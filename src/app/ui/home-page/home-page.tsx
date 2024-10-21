@@ -1,18 +1,22 @@
 import { Pagination } from "@nextui-org/react"
-import { useEffect } from "react"
-import { Link, redirect, useNavigate, useSearchParams } from "react-router-dom"
-import useSWRImmutable from "swr/immutable"
+import { useEffect, useState } from "react"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import styles from "./home-page.module.css"
 import { IData } from "./home-page.types"
 
 export const HomePage = () => {
   const [searchParams] = useSearchParams()
   const page = Number(searchParams.get("page")) || 1
-  const { data } = useSWRImmutable<IData>(`people/?page=${page}`)
+  const [data, setData] = useState<IData>()
   const navigate = useNavigate()
-
   const count = Number(data?.count) || 1
   const total = Math.max(Math.floor(count / 10), page)
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/people/?page=${page}`).then(
+      async (res) => setData(await res.json()),
+    )
+  }, [page])
 
   return (
     <div className={styles.wrapper}>
