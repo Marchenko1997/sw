@@ -29,6 +29,7 @@ src/
 |   |-- layout/         # Layout component
 |-- public/             # Public assets
 |-- node_modules/       # Project dependencies
+```
 
 # Star Wars Heroes & Starships Dashboard
 
@@ -65,14 +66,19 @@ To fetch starships, we implemented a stepwise selection because the API does not
 
 ```bash
 npm install
+```
 
 ### Start the project in development mode:
 
+```bash
 npm start
+```
 
 ### To build the project for production:
 
+```bash
 npm run build
+```
 
 ## Environment Variables
 
@@ -80,3 +86,4 @@ The project uses the following environment variables, which should be added to t
 
 ```plaintext
 REACT_APP_API_URL=<API URL>
+```
